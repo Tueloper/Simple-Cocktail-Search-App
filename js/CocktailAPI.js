@@ -85,4 +85,19 @@ class CocktailAPI {
     }
   }
 
+  async getCocktailByAlcohol(al_value) {
+
+    try {
+      let url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=${al_value}`;
+
+      const apiResponse = await fetch(url);
+      const drinks = await apiResponse.json();
+      // return console.log(recipeInfo)  
+      return {
+        drinks
+      }
+    } catch (error) {
+      ui.printMessage(error.message, 'alert-danger')
+    }
+  }
 };

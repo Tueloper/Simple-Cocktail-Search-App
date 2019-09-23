@@ -57,6 +57,10 @@ function getCocktail (e) {
       case 'category':
         serverRes = cockTailApi.getCocktailByCategory(cocktailName)
         break;
+      
+      case 'alcohol':
+        serverRes = cockTailApi.getCocktailByAlcohol(cocktailName)
+        break;
 
       default:
         break;
@@ -76,10 +80,8 @@ function getCocktail (e) {
         } else {
           ui.displayIngredientsHTML(drinks);
         }
-      }
-
-
-    })
+      };
+    });
 
   };
 };
