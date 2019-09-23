@@ -153,4 +153,32 @@ class UI {
 
   }
 
+  //displaying category
+  displayCategory() {
+
+    //querying the api
+    cockTailApi.getCategories()
+      .then(categories => {
+
+        const catsList = categories.categories.drinks;
+        
+        //read the select tag again
+        const select = document.querySelector('.search-category');
+        const firstOPtion = document.createElement('option');
+        firstOPtion.value = '';
+        firstOPtion.textContent = '- Select -';
+        select.appendChild(firstOPtion);
+
+        //creating the option to load the categories
+        catsList.forEach(cat => {
+
+          const option = document.createElement('option');
+          option.textContent = cat.strCategory
+          option.value = cat.strCategory.split(' ').join('_')
+
+          select.appendChild(option)
+        })
+      })
+  }
+
 }
