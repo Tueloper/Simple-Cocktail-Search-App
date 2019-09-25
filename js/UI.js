@@ -33,9 +33,13 @@ class UI {
     const drinResults = document.querySelector('#results');
 
     drinks.forEach(drink => {
+      // return console.log(drink)
       drinResults.innerHTML += `
         <div class="col-md-6">
           <div class="card my-3">
+            <button type="button" data-id="${drink.idDrink}" class="favorite-btn btn btn-outline-danger">
+              +
+            </button>
             <img class="card-img-top" src="${drink.strDrinkThumb}" alt="${drink.strDrink}">
                         
             <div class="card-body">
@@ -48,6 +52,7 @@ class UI {
         </div >
       `;
     })
+    this.isFavorite();
   }
 
   //displaying cocktails based on ingredients on the ingredients page
@@ -65,6 +70,9 @@ class UI {
       
         <div class="col-md-6">
           <div class="card my-3">
+            <button type="button" data-id="${drink.idDrink}" class="favorite-btn btn btn-outline-danger">
+              +
+            </button>
             <img class="card-img-top" src="${drink.strDrinkThumb}" alt="${drink.strDrink}">
                         
             <div class="card-body">
@@ -101,6 +109,7 @@ class UI {
 
       `;
     })
+    this.isFavorite();
   }
 
   //a function declared to display the numbers of ingredients in each of the cocktail on the screen
@@ -180,4 +189,63 @@ class UI {
         })
       })
   }
+
+  loadFavorites(drinks) {
+
+    const favour = document.querySelector('#favorites tbody');
+    drinks.forEach(drink => {
+       
+      //create a table row
+      const tr = document.createElement('tr');
+
+      tr.innerHTML = `
+        <td>
+          <img src="${drink.img}" alt="${drink.name}" width=100>
+        </td>
+
+         <td>
+          ${drink.name}
+        </td>
+
+         <td>
+          <a href="#" data-toggle="modal" data-target="#recipe" data-id="${drink.id}" class="btn btn-success get-recipe">
+            View
+          </a>
+        </td>
+
+         <td>
+            <a href="#" data-id="${drink.id}" class="btn btn-danger remove-recipe">
+            Remove
+          </a>
+        </td>
+      `;
+
+      favour.appendChild(tr);
+     })
+  }
+
+  removeFavorites(favour) {
+
+    //remove the element from the DOM
+    favour.remove();
+  }
+
+  //add is favorite class to loaded cocktails if they exist
+  isFavorite() {
+    const drinks = cockdb.getFromDb();
+
+    drinks.forEach(drink => {
+
+      //destructure the id
+      let { id } = drink;
+
+      //select the favorite
+      let favoriteDrink = document.querySelector(`[data-id="${id}"]`);
+      if (favoriteDrink) {
+        favoriteDrink.classList.add('is-favorite');
+        favoriteDrink.textContent = '-';
+      }
+    })
+  }
+
 }
