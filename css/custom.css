@@ -27,11 +27,11 @@ thead {
     border-radius: 50%;
     font-size: 22px;
     padding-left: 10px;
-    color: #29ABE0;
+    color: rgb(236, 31, 24);
 }
 
 .is-favorite {
-    background-color:#29ABE0!important;
+    background-color:rgb(224, 41, 41)!important;
     color: white!important;
 }
 
